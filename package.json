@@ -1,0 +1,35 @@
+{
+  "name": "test-mario-izquierdo",
+  "version": "1.0.0",
+  "description": "Prueba técnica para Jelou",
+  "main": "app.js",
+  "scripts": {
+    "dev": "node --watch backend/src/server.js",
+    "start": "node backend/src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariofizquierdoc/test-mario-izquierdo.git"
+  },
+  "author": "Mario Izquierdo <mizquier92@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mariofizquierdoc/test-mario-izquierdo/issues"
+  },
+  "homepage": "https://github.com/mariofizquierdoc/test-mario-izquierdo#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^2.2.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.15.3",
+    "react-router-dom": "^7.10.1",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.3"
+  }
+}
