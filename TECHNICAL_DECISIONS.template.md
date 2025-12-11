@@ -7,10 +7,10 @@
 
 ## 📋 Información General
 
-- **Nombre del Candidato**: [Tu nombre completo]
-- **Fecha de Inicio**: [DD/MM/YYYY]
-- **Fecha de Entrega**: [DD/MM/YYYY]
-- **Tiempo Dedicado**: [Ej: ~20 horas]
+- **Nombre del Candidato**: Mario Izquierdo
+- **Fecha de Inicio**: 07/12/2025
+- **Fecha de Entrega**: 10/12/2025
+- **Tiempo Dedicado**: Aprox 36 horas
 
 ---
 
@@ -20,22 +20,19 @@
 
 | Tecnología | Versión | Razón de Elección |
 |------------|---------|-------------------|
-| Node.js | 18.x | [Explica por qué elegiste esta versión] |
-| Express | 4.x | [Razón] |
-| Base de Datos | MySQL/MongoDB | [¿Por qué elegiste esta sobre la otra?] |
-| ORM/ODM | Sequelize/Mongoose | [Razón] |
-| Validación | express-validator/Joi/Zod | [Razón] |
-| Testing | Jest/Mocha | [Razón] |
+| Node.js | 22.20.0 |  |
+| Express | 5.2.1 |  |
+| Base de Datos | MySQL | Tengo más familiaridad con MySQL y sería más práctico por el tiempo límite |
+| ORM/ODM | Sequelize | El manejo de Sequelize se me hizo muy familiar a Eloquent (Laravel) con el que tengo amplia experiencia, admás de que su documentación es bastante completa y su instalación sencilla |
+| Validación | express-validator | [Razón] |
 
 ### Frontend
 
 | Tecnología | Versión | Razón de Elección |
 |------------|---------|-------------------|
-| React | 18.x | [Razón] |
-| Build Tool | Vite/CRA | [¿Por qué elegiste este?] |
-| Estado Global | Context/Redux/Zustand | [Razón] |
-| Estilos | CSS/Tailwind/MUI/etc | [Razón] |
-| Formularios | react-hook-form/Formik | [Razón] |
+| React | 19.2.5 |  |
+| Build Tool | Vite | Permite que el desarrollo se lleve a cabo con más rapidez ya que al hacer cambios en los archivos, el servidor se refresca (watch) pero sin perder el estado actual de la app |
+| Estilos | Tailwind | Su manejo de estilos por clases da mayor facilidad para quienes venimos de un contexto de uso de Bootstrap |
 
 ---
 
@@ -45,9 +42,36 @@
 
 ```
 backend/
-├── src/
-│   ├── [tu estructura]
-│   └── ...
+└── src/
+    ├── config (usuario y contraseña de prueba para BD)
+    ├── controllers
+    │   ├── authController.js
+    │   ├── profileController.js
+    │   ├── projectController.js
+    │   └── taskController.js
+    ├── middlewares
+    │   ├── auth.js
+    │   ├── errorHandler.js
+    │   └── logger.js
+    ├── migrations
+    │   └── ... #migraciones para crear las tablas de la BD
+    ├── models
+    │   ├── index.js
+    │   ├── project.js
+    │   ├── projectusers.js
+    │   ├── task.js
+    │   └── user.js
+    ├── routes
+    │   ├── admin.js
+    │   ├── auth.js
+    │   └── index.js
+    ├── services
+    │   ├── authService.js
+    │   ├── profileService.js
+    │   ├── projectService.js
+    │   └── taskService.js
+    ├── app.js
+    └── server.js
 ```
 
 **Razón de esta estructura:**
@@ -57,33 +81,69 @@ backend/
 
 ```
 frontend/
-├── src/
-│   ├── [tu estructura]
-│   └── ...
+└── src/
+    ├── components
+    │   ├── MyProjects
+    │   │   └── MyProjects.jsx
+    │   ├── MyTasks
+    │   │   └── MyTasks.jsx
+    │   ├── ProjectTasks
+    │   │   └── ProjectTasks.jsx
+    │   ├── UserMultiSelect
+    │   │   └── UserMultiSelect.jsx
+    │   ├── UserSelect
+    │   │   └── UserSelect.jsx
+    │   └── ProtectedRoute.jsx
+    ├── controllers
+    │   ├── authController.js
+    │   ├── profileController.js
+    │   ├── projectController.js
+    │   └── taskController.js
+    ├── context
+    │   └── authContext.jsx
+    ├── pages
+    │   ├── CreateProject.jsx
+    │   ├── CreateTask.jsx
+    │   ├── Dashboard.jsx
+    │   ├── EditMyTask.jsx
+    │   ├── EditProject.jsx
+    │   ├── EditTask.jsx
+    │   ├── Login.jsx
+    │   └── Register.jsx
+    ├── routes
+    │   └── AppRoutes.jsx
+    ├── services
+    │   └── api.js
+    ├── App.css
+    └── App.jsx
 ```
 
 **Razón de esta estructura:**
-[Explica por qué organizaste tu código de esta manera]
+Vengo de manejar proyectos usando MVC para poder divorciar la lógica de negocio del manejo de base de datos, de las rutas, etc.
+Esta estructura permite que cada archivo y cada componente se dedique sólo a lo suyo.
 
 ---
 
 ## 🗄️ Diseño de Base de Datos
 
-### Elección: MySQL / MongoDB
+### Elección: MySQL
 
 **Razones:**
-- [Razón 1]
-- [Razón 2]
-- [Razón 3]
+- Familiaridad
+- Rapidez
+- Mayor enfoque en relaciones entre tablas
 
 ### Schema/Modelos
 
-[Describe brevemente tus tablas/colecciones principales]
+- users (almacena los usuarios del sistema y maneja unicidad de correo electrónico)
+- projects (almacena los proyectos, cada proyecto le pertenece a un usuario, que es quien lo creó)
+- tasks (almacena las tareas, cada tarea le pertenece a un proyecto, que es donde fue creada, y puede ser asignada a un usuario)
+- projectusers (almacena los colaboradores de cada proyecto, así las tareas pueden ser asignadas a un usuario de los que ya colaboran en el proyecto)
 
 **Decisiones importantes:**
-- **Normalización** (si usas MySQL): [Explica cómo normalizaste]
-- **Índices**: [Qué índices agregaste y por qué]
-- **Relaciones**: [Cómo manejaste las relaciones entre entidades]
+- **Normalización** (si usas MySQL): En lugar de colocar en la tabla de proyectos los ids o nombres de usuarios colaboradores en una columna adicional, se partió la relación muchos a muchos con una tabla intermedia para eliminar cualquier redundancia o duplicación de datos.
+- **Índices**: Únicamente las llaves primarias de cada tabla ya que al ser un proyecto pequeño con solo 4 tablas, no demanda mucho tiempo de búsqueda
+- **Relaciones**: A través de foreignkey con el formato nombresingularId. Ej: userId, projectId, etc. La relación de muchos a muchos también se manejó de esta manera con una tabla intermedia.
 
 ---
 
@@ -91,8 +151,8 @@ frontend/
 
 ### Implementaciones de Seguridad
 
-- [ ] **Hash de contraseñas**: [bcrypt, argon2, etc. - ¿Por qué elegiste este?]
-- [ ] **JWT**: [¿Cómo configuraste la expiración? ¿Por qué?]
+- [ ] **Hash de contraseñas**: [bcrypt]
+- [ ] **JWT**: [3 horas, lo considero un estándar para tiempo de uso de un sistema]
 - [ ] **Validación de inputs**: [¿Qué estrategia usaste?]
 - [ ] **CORS**: [¿Cómo lo configuraste?]
 - [ ] **Headers de seguridad**: [¿Usaste helmet? ¿Otras medidas?]
@@ -114,10 +174,9 @@ frontend/
 
 ### Patrones de Diseño
 
-- **Responsive Design**: [¿Cómo lo abordaste? Mobile-first?]
-- **Loading States**: [¿Cómo manejaste los estados de carga?]
-- **Error Handling**: [¿Cómo muestras errores al usuario?]
-- **Feedback Visual**: [Toasts, modales, etc.]
+- **Responsive Design**: [Mobile first]
+- **Loading States**: [Loading icons que se eliminan al terminar el tiempo de espera]
+- **Error Handling**: [Indico qué error ocurrió]
 
 ### Decisiones de UX
 

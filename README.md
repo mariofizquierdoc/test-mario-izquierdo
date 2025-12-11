@@ -199,12 +199,17 @@ Si tienes dudas sobre los requisitos, no dudes en contactarnos.
 > **Nota**: Completa esta sección con las instrucciones para ejecutar tu proyecto.
 
 ## Prerrequisitos
-[Tus prerrequisitos]
+El proyecto funciona por separado como backend con sus respectivos endpoints y por otro lado el frontend, por lo que se necesitan abrir 2 terminales.
 
 ## Instalación
 ```bash
-# Tus comandos
+npm install
+npx sequelize init
+npx sequelize-cli db:migrate #(con tus credenciales para BD MySQL y el servidor de base de datos corriendo)
+cd frontend
+npm install
 ```
+
 
 ## Configuración
 ```bash
@@ -214,7 +219,14 @@ Si tienes dudas sobre los requisitos, no dudes en contactarnos.
 ## Ejecución
 ```bash
 # Backend
+cd ~/test-mario-izquierdo #raíz del proyecto
+npm start
+```
+En el segundo terminal:
+```bash
 # Frontend
+cd frontend
+npm run dev
 ```
 
 ## Tests
